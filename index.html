@@ -1,14 +1,407 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Your Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YOUR NAME</title>
+  <meta name="description" content="Personal academic website of YOUR NAME.">
+
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #1f4e79;
+      --accent-soft: #eaf1f8;
+      --border: #e5e7eb;
+      --max-width: 900px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      background: linear-gradient(to bottom, #f8fafc 0%, #f6f7f9 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+
+    .brand {
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.2px;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .nav a {
+      color: var(--muted);
+    }
+
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 42px;
+      margin-bottom: 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .name {
+      margin: 0 0 8px;
+      font-size: 2.6rem;
+      line-height: 1.15;
+      color: #111827;
+    }
+
+    .role {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .intro {
+      font-size: 1.06rem;
+      margin: 0 0 22px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-size: 0.97rem;
+      border: 1px solid var(--accent);
+      transition: 0.18s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.03);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--accent);
+    }
+
+    .btn-secondary:hover {
+      background: var(--accent-soft);
+      text-decoration: none;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px 34px;
+      margin-bottom: 24px;
+    }
+
+    .section h2 {
+      margin: 0 0 18px;
+      font-size: 1.3rem;
+      color: #111827;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .section p {
+      margin: 0 0 14px;
+    }
+
+    .research-item,
+    .education-item,
+    .experience-item {
+      margin-bottom: 22px;
+    }
+
+    .research-item:last-child,
+    .education-item:last-child,
+    .experience-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-title {
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .item-meta {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-bottom: 6px;
+    }
+
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid #d6e4f1;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.92rem;
+    }
+
+    .contact-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 24px;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: #111827;
+      margin-bottom: 3px;
+      font-size: 0.96rem;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 720px) {
+      .hero,
+      .section {
+        padding: 24px;
+      }
+
+      .name {
+        font-size: 2rem;
+      }
+
+      .contact-list {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Your Name</h1>
-  <p>Research Analyst</p>
+  <div class="container">
 
-  <p><a href="cv.html">CV</a></p>
-  <p><a href="research.html">Research</a></p>
+    <div class="topbar">
+      <div class="brand">YOUR NAME</div>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1 class="name">YOUR NAME</h1>
+          <p class="role">YOUR CURRENT TITLE · YOUR INSTITUTION</p>
+
+          <p class="intro">
+            I am an economist with interests in PUBLIC ECONOMICS, MACROECONOMICS, DEVELOPMENT ECONOMICS, and INTERNATIONAL ECONOMICS.
+            My current work focuses on BRIEF DESCRIPTION OF WHAT YOU DO. I am preparing applications to PhD programs in Economics.
+          </p>
+
+          <div class="button-row">
+            <a class="btn btn-primary" href="cv.pdf" target="_blank">Curriculum Vitae</a>
+            <a class="btn btn-secondary" href="mailto:YOUR EMAIL">Email</a>
+            <a class="btn btn-secondary" href="https://github.com/YOURUSERNAME" target="_blank">GitHub</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/YOUR-LINKEDIN/" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <h2>About</h2>
+      <p>
+        I am currently a YOUR POSITION at YOUR INSTITUTION. Previously, I worked as a YOUR PREVIOUS ROLE at YOUR PREVIOUS INSTITUTION.
+        My research interests lie mainly in PUBLIC ECONOMICS, DEVELOPMENT, MACROECONOMICS, and RELATED FIELD.
+      </p>
+      <p>
+        I hold a M.A. IN ECONOMICS from UNIVERSITY NAME and a B.A. IN ECONOMICS from UNIVERSITY NAME.
+        My broader goal is to conduct rigorous empirical research on SHORT DESCRIPTION OF YOUR RESEARCH AGENDA.
+      </p>
+
+      <div class="interests">
+        <span class="tag">Public Economics</span>
+        <span class="tag">Development Economics</span>
+        <span class="tag">Macroeconomics</span>
+        <span class="tag">International Economics</span>
+        <span class="tag">Political Economy</span>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <h2>Research</h2>
+
+      <div class="research-item">
+        <div class="item-title">TITLE OF PROJECT OR THESIS</div>
+        <div class="item-meta">Job market paper / Master’s thesis / Working paper</div>
+        <p>
+          WRITE 2–3 LINES HERE. State the question, the method, and the contribution in plain language.
+          For example: this project studies WHETHER X AFFECTS Y using DATA/METHOD, with implications for POLICY OR THEORY.
+        </p>
+      </div>
+
+      <div class="research-item">
+        <div class="item-title">TITLE OF SECOND PROJECT</div>
+        <div class="item-meta">Ongoing research</div>
+        <p>
+          WRITE A SHORT DESCRIPTION HERE. Mention coauthors if relevant, or note that the project is work in progress.
+        </p>
+      </div>
+
+      <div class="research-item">
+        <div class="item-title">TITLE OF THIRD PROJECT</div>
+        <div class="item-meta">Research assistance / collaborative project</div>
+        <p>
+          WRITE A SHORT DESCRIPTION HERE. Keep each entry concise and professional.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <h2>Education</h2>
+
+      <div class="education-item">
+        <div class="item-title">M.A. in Economics, UNIVERSITY NAME</div>
+        <div class="item-meta">YEAR OR EXPECTED YEAR</div>
+        <p>
+          Optional: thesis title, advisor, GPA, distinction, or relevant coursework.
+        </p>
+      </div>
+
+      <div class="education-item">
+        <div class="item-title">B.A. in Economics, UNIVERSITY NAME</div>
+        <div class="item-meta">YEAR</div>
+        <p>
+          Optional: honors, rank, thesis, or notable academic distinctions.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <h2>Research Experience</h2>
+
+      <div class="experience-item">
+        <div class="item-title">YOUR CURRENT ROLE, INSTITUTION</div>
+        <div class="item-meta">MONTH YEAR – Present</div>
+        <p>
+          Briefly describe your research responsibilities, the type of projects you work on, and the methods or topics involved.
+        </p>
+      </div>
+
+      <div class="experience-item">
+        <div class="item-title">YOUR PREVIOUS ROLE, INSTITUTION</div>
+        <div class="item-meta">MONTH YEAR – MONTH YEAR</div>
+        <p>
+          Briefly describe your work and any major research outputs, coauthorships, or policy projects.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+
+      <div class="contact-list">
+        <div class="contact-item">
+          <strong>Email</strong>
+          <a href="mailto:YOUR EMAIL">YOUR EMAIL</a>
+        </div>
+
+        <div class="contact-item">
+          <strong>GitHub</strong>
+          <a href="https://github.com/YOURUSERNAME" target="_blank">github.com/YOURUSERNAME</a>
+        </div>
+
+        <div class="contact-item">
+          <strong>LinkedIn</strong>
+          <a href="https://www.linkedin.com/in/YOUR-LINKEDIN/" target="_blank">YOUR LINKEDIN URL</a>
+        </div>
+
+        <div class="contact-item">
+          <strong>CV</strong>
+          <a href="cv.pdf" target="_blank">Download PDF</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Last updated: APRIL 2026
+    </div>
+  </div>
 </body>
 </html>
