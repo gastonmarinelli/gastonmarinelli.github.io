@@ -88,9 +88,9 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr auto;
       gap: 24px;
-      align-items: center;
+      align-items: flex-start;
     }
 
     .name {
@@ -147,6 +147,14 @@
       text-decoration: none;
     }
 
+    .hero-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+      
     .section {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -252,8 +260,8 @@
       }
 
       .hero-image {
-        width: 5px;
-        height: 5px;
+        width: 100px;
+        height: 100px;
       }
     }
   </style>
