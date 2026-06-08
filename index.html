@@ -20,6 +20,23 @@
       --radius: 18px;
     }
 
+.btn {
+  display: inline-block;
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-size: 0.97rem;
+  border: 1px solid var(--accent);
+  transition: 0.18s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn svg {
+  width: 20px;
+  height: 20px;
+}
+    
     * {
       box-sizing: border-box;
     }
@@ -297,9 +314,23 @@
         <div>
           <h1 class="name">Gaston Marinelli</h1>
           <div class="button-row">
-            <a class="btn btn-primary" href="CV.pdf" target="_blank">Curriculum Vitae</a>
-            <a class="btn btn-secondary" href="mailto:gastonmarinelli00@gmail.com">Email</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/gaston-marinelli/" target="_blank">LinkedIn</a>
+<a class="btn btn-primary" href="CV.pdf" target="_blank" title="Curriculum Vitae">
+  <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+    <polyline points="14 2 14 8 20 8"/>
+    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
+  </svg>
+</a>
+<a class="btn btn-secondary" href="mailto:gastonmarinelli00@gmail.com" title="Email">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </svg>
+</a>
+<a class="btn btn-secondary" href="https://www.linkedin.com/in/gaston-marinelli/" target="_blank" title="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+  </svg>
+</a>
           </div>
         </div>
         <img class="hero-image" src="profile.jpeg" alt="Gaston Marinelli">
