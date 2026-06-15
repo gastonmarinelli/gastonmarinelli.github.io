@@ -70,6 +70,7 @@ jobs:
         with:
           root_file: ${{ env.TEX_ROOT }}
           working_directory: overleaf-cv
+          texlive_version: 2024
           # If your CV uses XeLaTeX, uncomment:
           # latexmk_use_xelatex: true
           # If your CV uses LuaLaTeX, uncomment:
