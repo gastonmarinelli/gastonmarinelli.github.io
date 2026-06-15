@@ -1,0 +1,109 @@
+name: Sync CV PDF from Overleaf
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"  # every 30 minutes; change to */5 for every 5 minutes
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-overleaf-cv
+  cancel-in-progress: true
+
+env:
+  # Change this to the main .tex file in your Overleaf CV project.
+  TEX_ROOT: gaston.tex
+
+  # This is the file currently used by your website repo.
+  OUTPUT_PDF: CV.pdf
+
+  # Stores the last Overleaf Git commit we processed.
+  SHA_FILE: .github/overleaf-cv-sha
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out website repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Clone Overleaf project
+        env:
+          OVERLEAF_PROJECT_ID: ${{ secrets.OVERLEAF_PROJECT_ID }}
+          OVERLEAF_TOKEN: ${{ secrets.OVERLEAF_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          cat > ~/.netrc <<EOF
+          machine git.overleaf.com
+          login git
+          password ${OVERLEAF_TOKEN}
+          EOF
+          chmod 600 ~/.netrc
+
+          git clone --depth 1 "https://git.overleaf.com/${OVERLEAF_PROJECT_ID}" overleaf-cv
+
+      - name: Check whether Overleaf source changed
+        id: source
+        run: |
+          set -euo pipefail
+
+          sha="$(git -C overleaf-cv rev-parse HEAD)"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+          if [ -f "$SHA_FILE" ] && [ "$(cat "$SHA_FILE")" = "$sha" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No Overleaf changes."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Overleaf changed: $sha"
+          fi
+
+      - name: Compile CV
+        if: steps.source.outputs.changed == 'true'
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: ${{ env.TEX_ROOT }}
+          working_directory: overleaf-cv
+          # If your CV uses XeLaTeX, uncomment:
+          # latexmk_use_xelatex: true
+          # If your CV uses LuaLaTeX, uncomment:
+          # latexmk_use_lualatex: true
+
+      - name: Replace website CV.pdf
+        if: steps.source.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+
+          pdf_from_overleaf="overleaf-cv/${TEX_ROOT%.tex}.pdf"
+
+          if [ ! -f "$pdf_from_overleaf" ]; then
+            echo "Expected PDF not found: $pdf_from_overleaf"
+            exit 1
+          fi
+
+          cp "$pdf_from_overleaf" "$OUTPUT_PDF"
+          mkdir -p "$(dirname "$SHA_FILE")"
+          echo "${{ steps.source.outputs.sha }}" > "$SHA_FILE"
+
+      - name: Commit and push if changed
+        if: steps.source.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- "$OUTPUT_PDF" "$SHA_FILE"; then
+            echo "Nothing changed after build."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add "$OUTPUT_PDF" "$SHA_FILE"
+          git commit -m "Update CV.pdf from Overleaf"
+          git push
